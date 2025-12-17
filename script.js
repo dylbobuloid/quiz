@@ -45,9 +45,14 @@ let questionIndex = 0
 
 
 function renderQuestion() {
+
+    const prevAnswersDiv = document.getElementById("answers-div")
+    prevAnswersDiv.remove()
+
     let currentQuestion = questions[questionIndex]
 
 
+    const answersDiv = document.createElement("div")
     const question = document.createElement("h2")
 
     question.textContent = currentQuestion.question
@@ -65,9 +70,10 @@ function renderQuestion() {
     answer4.textContent = currentQuestion.answers[3].text
     next.textContent = "Next"
 
+    answersDiv.setAttribute("id", "answers-div")
     next.setAttribute("onclick", "renderQuestion()")
 
-    const answersDiv = document.getElementById("answers-div")
+    const currentDiv = document.getElementById("main")
     const navigation = document.getElementById("navigation")
 
     answersDiv.appendChild(question)
@@ -78,11 +84,14 @@ function renderQuestion() {
 
     navigation.appendChild(next)
 
-    const startButton = document.getElementById("start")
+    currentDiv.appendChild(answersDiv)
 
-    startButton.remove()
+    //const startButton = document.getElementById("start")
+
+    //startButton.remove()
+
 
     questionIndex++
 
-
+``
 }
