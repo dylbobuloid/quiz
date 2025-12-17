@@ -58,13 +58,8 @@ function renderQuestion() {
 
     }
 
-    // Remove the next tag otherwise there will be a duplicate
-    // it probably isnt efficient re-rendering next every time but for now
-    // this is the solution 
-
     const prevAnswersDiv = document.getElementById("answers-div")
     prevAnswersDiv.remove()
-
 
     let currentQuestion = questions[questionIndex]
 
@@ -84,36 +79,46 @@ function renderQuestion() {
 
     answersDiv.appendChild(question)
 
-    currentQuestion.answers.forEach((answer, index) => {
+    currentQuestion.answers.forEach((answer) => {
         //create a button for each answer
         const answerElement = document.createElement("button")
         answerElement.textContent = answer.text
-        answerElement.setAttribute("id", `answer-${answer.id}`)
+        answerElement.id = `answer-${answer.id}`
+
+        //Adds an event listener on the button instead of an onclick
+        answerElement.addEventListener("click", () => {
+            checkAnswer(answer)
+        })
+
         answersDiv.append(answerElement)
 
     })
-    // const answer1 = document.createElement("button")
-    // const answer2 = document.createElement("button")
-    // const answer3 = document.createElement("button")
-    // const answer4 = document.createElement("button")
-
-    // answer1.textContent = currentQuestion.answers[0].text
-    // answer2.textContent = currentQuestion.answers[1].text
-    // answer3.textContent = currentQuestion.answers[2].text
-    // answer4.textContent = currentQuestion.answers[3].text
 
     const currentDiv = document.getElementById("main")
     const navigation = document.getElementById("navigation")
-
-    // answersDiv.appendChild(answer1)
-    // answersDiv.appendChild(answer2)
-    // answersDiv.appendChild(answer3)
-    // answersDiv.appendChild(answer4)
 
     navigation.appendChild(next)
 
     currentDiv.appendChild(answersDiv)
 
     questionIndex++
+
+}
+
+function checkAnswer(answer){
+    console.log('Heres the answer that was passed through', answer);
+    if(answer.correct == true){
+        console.log("DING DING DING");
+    }else{
+        console.log("FALSE EH AWWW");
+    }
+    //check whether the answer is correct or not
+    // How can I check if they are correct
+        // Inside the answer array I have a boolean correct: true
+        // I can use this to see if its true then I'll console log that they got it correct
+        // for now lets pass in the entire answer array
+
+    // if the answer is incorrect make the button the user selected red
+    // regardless make the correct answer green
 
 }
