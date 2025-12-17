@@ -46,8 +46,21 @@ let questionIndex = 0
 
 function renderQuestion() {
 
+    //Remove the start butto if it exists
+    if (document.getElementById('start') != null) {
+        document.getElementById('start').remove()
+    } else {
+        document.getElementById('next').remove()
+
+    }
+
+    // Remove the next tag otherwise there will be a duplicate
+    // it probably isnt efficient re-rendering next every time but for now
+    // this is the solution 
+
     const prevAnswersDiv = document.getElementById("answers-div")
     prevAnswersDiv.remove()
+
 
     let currentQuestion = questions[questionIndex]
 
@@ -72,6 +85,7 @@ function renderQuestion() {
 
     answersDiv.setAttribute("id", "answers-div")
     next.setAttribute("onclick", "renderQuestion()")
+    next.setAttribute("id", "next")
 
     const currentDiv = document.getElementById("main")
     const navigation = document.getElementById("navigation")
@@ -91,7 +105,8 @@ function renderQuestion() {
     //startButton.remove()
 
 
+
     questionIndex++
 
-``
+    ``
 }
