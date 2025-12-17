@@ -1,5 +1,6 @@
 let questions = [
     {
+        id: 0,
         question: "Which of these possess a mangekyou sharingan?",
         answers: [
             { text: "Monkey.D Luffy", correct: false },
@@ -10,6 +11,7 @@ let questions = [
         ]
     },
     {
+        id: 1,
         question: "What language do they speak in Brazil?",
         answers: [
             { text: "Patois", correct: false },
@@ -20,6 +22,7 @@ let questions = [
         ]
     },
     {
+        id: 2,
         question: "What colour is also a fruit?",
         answers: [
             { text: "Orange", correct: true },
@@ -30,6 +33,7 @@ let questions = [
         ]
     },
     {
+        id: 3,
         question: "What is the best job?",
         answers: [
             { text: "Accountant", correct: false },
@@ -70,43 +74,46 @@ function renderQuestion() {
 
     question.textContent = currentQuestion.question
 
-    const answer1 = document.createElement("button")
-    const answer2 = document.createElement("button")
-    const answer3 = document.createElement("button")
-    const answer4 = document.createElement("button")
     const next = document.createElement("button")
 
-
-    answer1.textContent = currentQuestion.answers[0].text
-    answer2.textContent = currentQuestion.answers[1].text
-    answer3.textContent = currentQuestion.answers[2].text
-    answer4.textContent = currentQuestion.answers[3].text
     next.textContent = "Next"
 
     answersDiv.setAttribute("id", "answers-div")
     next.setAttribute("onclick", "renderQuestion()")
     next.setAttribute("id", "next")
 
+    answersDiv.appendChild(question)
+
+    currentQuestion.answers.forEach((answer, index) => {
+        //create a button for each answer
+        const answerElement = document.createElement("button")
+        answerElement.textContent = answer.text
+        answerElement.setAttribute("id", `answer-${answer.id}`)
+        answersDiv.append(answerElement)
+
+    })
+    // const answer1 = document.createElement("button")
+    // const answer2 = document.createElement("button")
+    // const answer3 = document.createElement("button")
+    // const answer4 = document.createElement("button")
+
+    // answer1.textContent = currentQuestion.answers[0].text
+    // answer2.textContent = currentQuestion.answers[1].text
+    // answer3.textContent = currentQuestion.answers[2].text
+    // answer4.textContent = currentQuestion.answers[3].text
+
     const currentDiv = document.getElementById("main")
     const navigation = document.getElementById("navigation")
 
-    answersDiv.appendChild(question)
-    answersDiv.appendChild(answer1)
-    answersDiv.appendChild(answer2)
-    answersDiv.appendChild(answer3)
-    answersDiv.appendChild(answer4)
+    // answersDiv.appendChild(answer1)
+    // answersDiv.appendChild(answer2)
+    // answersDiv.appendChild(answer3)
+    // answersDiv.appendChild(answer4)
 
     navigation.appendChild(next)
 
     currentDiv.appendChild(answersDiv)
 
-    //const startButton = document.getElementById("start")
-
-    //startButton.remove()
-
-
-
     questionIndex++
 
-    ``
 }
