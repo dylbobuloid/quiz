@@ -48,21 +48,50 @@ let questions = [
 let questionIndex = 0
 let score = 0
 
+function renderResults() {
+    //Remove whats on the screen
+    const prevAnswersDiv = document.getElementById("answers-div")
+    prevAnswersDiv.remove()
+
+    resultsDiv = document.createElement("div")
+    resultsDiv.id = "results-div"
+
+    const resultsHeader = document.createElement("h2")
+    resultsHeader.textContent = "Quiz Complete!"
+
+    const resultsScore = document.createElement("p")
+    resultsScore.textContent = `You scored ${score} out of ${questions.length}`
+
+    resultsDiv.appendChild(resultsHeader)
+    resultsDiv.appendChild(resultsScore)
+
+    const currentDiv = document.getElementById("main")
+    currentDiv.appendChild(resultsDiv)
+    
+    console.log("Hey were showing results now");
+
+
+}
 function renderQuestion() {
 
     //Remove the start butto if it exists
     if (document.getElementById('start') != null) {
         document.getElementById('start').remove()
+    } else if (questionIndex == 4) {
+        console.log("QUIZ COMPLETE");
+        return renderResults()
     } else {
         document.getElementById('next').remove()
 
     }
+
 
     const prevAnswersDiv = document.getElementById("answers-div")
     prevAnswersDiv.remove()
 
     let currentQuestion = questions[questionIndex]
 
+    console.log('This is the current question', currentQuestion);
 
     const answersDiv = document.createElement("div")
     const question = document.createElement("h2")
@@ -73,9 +102,12 @@ function renderQuestion() {
 
     next.textContent = "Next"
 
-    answersDiv.setAttribute("id", "answers-div")
-    next.setAttribute("onclick", "renderQuestion()")
-    next.setAttribute("id", "next")
+    answersDiv.id = 'answers-div'
+
+    next.addEventListener("click", () => {
+        renderQuestion()
+    })
+    next.id = 'next'
 
     answersDiv.appendChild(question)
 
@@ -83,12 +115,11 @@ function renderQuestion() {
         //create a button for each answer
         const answerElement = document.createElement("button")
         answerElement.textContent = answer.text
-        console.log("THIS IS THE ANSWER INDEX IN RENDER", index);
         answerElement.id = `answer-${index}`
 
         //Adds an event listener on the button instead of an onclick
         answerElement.addEventListener("click", () => {
-            checkAnswer(answer,index)
+            checkAnswer(answer, index)
         })
 
         answersDiv.append(answerElement)
@@ -106,24 +137,24 @@ function renderQuestion() {
 
 }
 
-function checkAnswer(answer, index){
+function checkAnswer(answer, index) {
     console.log("THIS IS THE ANSWER INDEX IN CHECK ANSWER", answer.id);
     console.log('Heres the answer that was passed through', answer);
-    if(answer.correct == true){
+    if (answer.correct == true) {
         console.log("DING DING DING");
         document.getElementById(`answer-${index}`).style.background = 'green'
         score++
         console.log("current score ", score);
-    }else{
+    } else {
         console.log("FALSE EH AWWW");
         document.getElementById(`answer-${index}`).style.background = 'red'
 
     }
     //check whether the answer is correct or not
     // How can I check if they are correct
-        // Inside the answer array I have a boolean correct: true
-        // I can use this to see if its true then I'll console log that they got it correct
-        // for now lets pass in the entire answer array
+    // Inside the answer array I have a boolean correct: true
+    // I can use this to see if its true then I'll console log that they got it correct
+    // for now lets pass in the entire answer array
 
     // if the answer is incorrect make the button the user selected red
     // regardless make the correct answer green
