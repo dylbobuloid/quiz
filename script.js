@@ -46,7 +46,7 @@ let questions = [
 ]
 
 let questionIndex = 0
-
+let score = 0
 
 function renderQuestion() {
 
@@ -79,15 +79,16 @@ function renderQuestion() {
 
     answersDiv.appendChild(question)
 
-    currentQuestion.answers.forEach((answer) => {
+    currentQuestion.answers.forEach((answer, index) => {
         //create a button for each answer
         const answerElement = document.createElement("button")
         answerElement.textContent = answer.text
-        answerElement.id = `answer-${answer.id}`
+        console.log("THIS IS THE ANSWER INDEX IN RENDER", index);
+        answerElement.id = `answer-${index}`
 
         //Adds an event listener on the button instead of an onclick
         answerElement.addEventListener("click", () => {
-            checkAnswer(answer)
+            checkAnswer(answer,index)
         })
 
         answersDiv.append(answerElement)
@@ -105,12 +106,18 @@ function renderQuestion() {
 
 }
 
-function checkAnswer(answer){
+function checkAnswer(answer, index){
+    console.log("THIS IS THE ANSWER INDEX IN CHECK ANSWER", answer.id);
     console.log('Heres the answer that was passed through', answer);
     if(answer.correct == true){
         console.log("DING DING DING");
+        document.getElementById(`answer-${index}`).style.background = 'green'
+        score++
+        console.log("current score ", score);
     }else{
         console.log("FALSE EH AWWW");
+        document.getElementById(`answer-${index}`).style.background = 'red'
+
     }
     //check whether the answer is correct or not
     // How can I check if they are correct
